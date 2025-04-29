@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<!--    <record id="hr_holidays.hr_leave_action_my" model="ir.actions.act_window">-->
+<!--        <field name="context">{'leave_fast_create':True,'unlink':True,'default_state':'draft'}</field>-->
+<!--    </record>-->
+
+    <record id="hr_holidays.hr_leave_action_my" model="ir.actions.act_window">
+        <field name="name">我的调休申请</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.leave</field>
+        <field name="view_mode">tree,form,calendar,kanban,activity</field>
+        <field name="context">{'leave_fast_create':True,'unlink':True,'default_state':'draft'}</field>
+        <field name="search_view_id" ref="hr_holidays.hr_leave_view_search_my"/>
+        <field name="domain">[('user_id', '=', uid)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Keep track of your PTOs.
+            </p><p>
+                A great way to keep track on your time off requests, sick days, and approval status.
+            </p>
+        </field>
+    </record>
+
+
+    <record id="hr_holidays.hr_leave_allocation_action_my" model="ir.actions.act_window">
+        <field name="name">我的加班申请</field>
+        <field name="res_model">hr.leave.allocation</field>
+        <field name="view_mode">tree,kanban,form,activity</field>
+        <field name="search_view_id" ref="hr_holidays.hr_leave_allocation_view_search_my"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new time off allocation request
+            </p><p>
+                Time Off Officers allocate time off days to employees (e.g. paid time off).<br/>
+                Employees request allocations to Time Off Officers (e.g. recuperation days).
+            </p>
+        </field>
+        <field name="context">{'default_state':'draft'}</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+    </record>
+
+
+    <record id="hr_leave_allocation_view_form_inherit" model="ir.ui.view">
+        <field name="name">hr.leave.allocation.inherit</field>
+        <field name="model">hr.leave.allocation</field>
+        <field name="inherit_id" ref="hr_holidays.hr_leave_allocation_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="class">oe_highlight oe_read_only</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+
+
+
+</odoo>
